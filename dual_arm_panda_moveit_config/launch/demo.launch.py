@@ -74,6 +74,8 @@ def generate_launch_description():
         "joint_state_broadcaster",
         "left_arm_controller",
         "right_arm_controller",
+        "left_hand_controller",
+        "right_hand_controller",
     ]:
         load_controllers += [
             ExecuteProcess(
