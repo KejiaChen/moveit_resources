@@ -34,7 +34,6 @@ left_arm_controller:
       - left_panda_joint5
       - left_panda_joint6
       - left_panda_joint7
-    allow_nonzero_velocity_at_trajectory_end: true
   
 left_hand_controller:
   ros__parameters:
@@ -55,7 +54,6 @@ right_arm_controller:
       - right_panda_joint5
       - right_panda_joint6
       - right_panda_joint7
-    allow_nonzero_velocity_at_trajectory_end: true
 
 right_hand_controller:
   ros__parameters:
