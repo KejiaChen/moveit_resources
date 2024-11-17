@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+
+    <xacro:arg name="left_initial_positions_file"
+            default="$(find dual_arm_panda_moveit_config)/config/left_initial_positions.yaml"/>
+    <xacro:arg name="right_initial_positions_file"
+            default="$(find dual_arm_panda_moveit_config)/config/right_initial_positions.yaml"/>
+
+    <!-- Root link -->
+    <link name="world"/>
+
+    <!-- Xacro imports -->
+    <xacro:include filename="panda_arm_macro.xacro" />\
+
+    <!-- box shaped table as base for the 2 Pandas -->
+    <link name="base">
+        <visual>
+        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <geometry>
+            <box size="0.8 1.6 1" />
+        </geometry>
+        <material name="White">
+            <color rgba="1.0 1.0 1.0 1.0" />
+        </material>
+        </visual>
+        <collision>
+        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <geometry>
+            <box size="0.8 1.6 1" />
+        </geometry>
+        </collision>
+        <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="10.0"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.001" iyy="0.0" iyz="0.0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="base_to_world" type="fixed">
+            <parent link="world"/>
+            <child link="base"/>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <!-- Left arm -->
+    <xacro:panda_arm
+        name="left_panda"
+        prefix="left_"
+        parent="world"
+        initial_positions_file="$(arg left_initial_positions_file)">
+        <origin xyz="0 -0.281 1" rpy="0 0 0" />
+    </xacro:panda_arm>
+
+    <!-- Right arm -->
+    <xacro:panda_arm
+        name="right_panda"
+        prefix="right_"
+        parent="world"
+        initial_positions_file="$(arg right_initial_positions_file)">
+        <origin xyz="0 0.281 1" rpy="0 0 0" />
+    </xacro:panda_arm>
+</robot>
