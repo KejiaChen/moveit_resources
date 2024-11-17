@@ -31,7 +31,7 @@ origin	https://github.com/moveit/moveit_resources (push)
 ```
 Change the repository to our fork:
 ```
-https://github.com/KejiaChen/moveit_resources.git
+git remote set-url origin https://github.com/KejiaChen/moveit_resources.git
 ```
 Pull from ```ros2```branch
 ```
