@@ -60,20 +60,20 @@ def generate_launch_description():
     )
     rviz_full_config = os.path.join(rviz_base, "moveit.rviz")
     rviz_empty_config = os.path.join(rviz_base, "moveit_empty.rviz")
-    rviz_node_tutorial = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="log",
-        arguments=["-d", rviz_empty_config],
-        parameters=[
-            moveit_config.robot_description,
-            moveit_config.robot_description_semantic,
-            moveit_config.planning_pipelines,
-            moveit_config.robot_description_kinematics,
-        ],
-        condition=IfCondition(tutorial_mode),
-    )
+    # rviz_node_tutorial = Node(
+    #     package="rviz2",
+    #     executable="rviz2",
+    #     name="rviz2",
+    #     output="log",
+    #     arguments=["-d", rviz_empty_config],
+    #     parameters=[
+    #         moveit_config.robot_description,
+    #         moveit_config.robot_description_semantic,
+    #         moveit_config.planning_pipelines,
+    #         moveit_config.robot_description_kinematics,
+    #     ],
+    #     condition=IfCondition(tutorial_mode),
+    # )
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
@@ -165,7 +165,7 @@ def generate_launch_description():
             db_arg,
             ros2_control_hardware_type,
             rviz_node,
-            rviz_node_tutorial,
+            # rviz_node_tutorial,
             static_tf_node,
             robot_state_publisher,
             move_group_node,
