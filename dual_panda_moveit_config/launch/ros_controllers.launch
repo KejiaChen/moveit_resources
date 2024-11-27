@@ -6,6 +6,8 @@
 
   <!-- Load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="panda_1_controller dual_arm_controller panda_2_controller hand_1_controller hand_2_controller "/>
-
+    output="screen" args="panda_1_controller panda_2_controller hand_1_controller hand_2_controller "/>
+  <!-- OR -->
+  <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+        args="dual_arm_controller" /> -->
 </launch>
