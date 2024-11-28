@@ -36,7 +36,11 @@ def generate_launch_description():
         ParameterBuilder("moveit_servo")
         .yaml(
             parameter_namespace="moveit_servo",
-            file_path="config/panda_simulated_config.yaml",
+            file_path="config/dual_pose_tracking_settings.yaml",
+        )
+        .yaml(
+            parameter_namespace="moveit_servo",
+            file_path="config/dual_panda_simulated_config_pose_tracking.yaml",
         )
         .to_dict()
     )
@@ -53,10 +57,11 @@ def generate_launch_description():
     # The servo cpp interface demo
     # Creates the Servo node and publishes commands to it
     servo_node = Node(
-        package="moveit2_tutorials",
-        executable="servo_cpp_interface_demo",
+        package="moveit_servo",
+        executable="follow_demo",
         output="screen",
         parameters=[
+            # moveit_config.to_dict(),
             servo_params,
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
@@ -84,7 +89,9 @@ def generate_launch_description():
     # RViz
     rviz_config = os.path.join(
         get_package_share_directory("dual_arm_panda_moveit_config"),
-        "launch/moveit.rviz",
+        "launch/dual_demo_rviz_pose_tracking.rviz",
+        #  get_package_share_directory("dual_arm_panda_moveit_config"),
+        # "launch/moveit.rviz",
     )
     rviz_node = Node(
         package="rviz2",
@@ -100,8 +107,6 @@ def generate_launch_description():
         ],
     )
    
-
-
     # ros2_control using FakeSystem as hardware
     ros2_controllers_path = os.path.join(
         get_package_share_directory("dual_arm_panda_moveit_config"),
@@ -120,9 +125,30 @@ def generate_launch_description():
 
     # Load controllers
     load_controllers = []
+    joint_state_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "joint_state_broadcaster",
+            "--controller-manager-timeout",
+            "300",
+            "--controller-manager",
+            "/controller_manager",
+        ],
+    )
+    load_controllers.append(joint_state_broadcaster_spawner)
+    
+    left_arm_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["left_arm_controller", "-c", "/controller_manager"],
+    )
+    load_controllers.append(left_arm_controller_spawner)
+    
+    
     for controller in [
-        "joint_state_broadcaster",
-        "left_arm_controller",
+        # "joint_state_broadcaster",
+        # "left_arm_controller",
         "right_arm_controller",
         "left_hand_controller",
         "right_hand_controller",
@@ -138,9 +164,11 @@ def generate_launch_description():
     return LaunchDescription(
         [
             rviz_node,
+            static_tf_node,
+            servo_node,
+            ros2_control_node,
             robot_state_publisher,
             move_group_node,
-            ros2_control_node,
         ]
         + load_controllers
     )
