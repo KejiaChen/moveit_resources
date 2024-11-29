@@ -815,7 +815,7 @@ Visualization Manager:
         Show Robot Visual: true
       Value: true
       Velocity_Scaling_Factor: 0.1
-      - Class: rviz_default_plugins/MarkerArray
+    - Class: rviz_default_plugins/MarkerArray
       Enabled: true
       Name: MarkerArray
       Namespaces:
@@ -825,7 +825,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /move_group_tutorial
+        Value: /dual_move_group_tutorial
       Value: true
   Enabled: true
   Global Options:
