@@ -6,11 +6,11 @@
     <xacro:arg name="right_initial_positions_file"
             default="$(find dual_arm_panda_moveit_config)/config/right_initial_positions.yaml"/>
 
+    <!-- Xacro imports -->
+    <xacro:include filename="panda_arm_macro.xacro" />
+
     <!-- Root link -->
     <link name="world"/>
-
-    <!-- Xacro imports -->
-    <xacro:include filename="panda_arm_macro.xacro" />\
 
     <!-- box shaped table as base for the 2 Pandas -->
     <link name="base">
@@ -46,7 +46,7 @@
     <xacro:panda_arm
         name="left_panda"
         prefix="left_"
-        parent="world"
+        parent="base"
         initial_positions_file="$(arg left_initial_positions_file)">
         <origin xyz="0 -0.281 1" rpy="0 0 0" />
     </xacro:panda_arm>
@@ -55,7 +55,7 @@
     <xacro:panda_arm
         name="right_panda"
         prefix="right_"
-        parent="world"
+        parent="base"
         initial_positions_file="$(arg right_initial_positions_file)">
         <origin xyz="0 0.281 1" rpy="0 0 0" />
     </xacro:panda_arm>
