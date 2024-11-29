@@ -42,7 +42,7 @@ def generate_launch_description():
     # RViz
     rviz_config = os.path.join(
         get_package_share_directory("dual_arm_panda_moveit_config"),
-        "launch/moveit.rviz",
+        "launch/move_group.rviz",
     )
     rviz_node = Node(
         package="rviz2",
@@ -83,10 +83,10 @@ def generate_launch_description():
     ros2_control_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[ros2_controllers_path],
-        remappings=[
-            ("/controller_manager/robot_description", "/robot_description"),
-        ],
+        parameters=[moveit_config.robot_description, ros2_controllers_path],
+        # remappings=[
+        #     ("/controller_manager/robot_description", "/robot_description"),
+        # ],
         output="both",
     )
 
