@@ -37,15 +37,28 @@ def generate_launch_description():
     }
     
     # Get parameters for the Servo node
-    servo_params = (
+    follow_servo_params = (
         ParameterBuilder("moveit_servo")
         .yaml(
             parameter_namespace="moveit_servo",
-            file_path="config/dual_pose_tracking_settings.yaml",
+            file_path="config/follow_pose_tracking_settings.yaml",
         )
         .yaml(
             parameter_namespace="moveit_servo",
-            file_path="config/dual_panda_simulated_config_pose_tracking.yaml",
+            file_path="config/follow_panda_simulated_config_pose_tracking.yaml",
+        )
+        .to_dict()
+    )
+    
+    lead_servo_params = (
+        ParameterBuilder("moveit_servo")
+        .yaml(
+            parameter_namespace="moveit_servo",
+            file_path="config/lead_pose_tracking_settings.yaml",
+        )
+        .yaml(
+            parameter_namespace="moveit_servo",
+            file_path="config/lead_panda_simulated_config_pose_tracking.yaml",
         )
         .to_dict()
     )
@@ -60,18 +73,32 @@ def generate_launch_description():
     )
     
     # The servo cpp interface demo
-    # Creates the Servo node and publishes commands to it
+    # Creates the follower Servo node and publishes commands to it
     servo_node = Node(
         package="moveit_servo",
         executable="follow_demo",
         output="screen",
         parameters=[
             # moveit_config.to_dict(),
-            servo_params,
+            follow_servo_params,
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
         ],
     )
+    
+    # # The servo cpp interface demo
+    # # Creates the leader Servo node and publishes commands to it
+    # servo_node = Node(
+    #     package="moveit_servo",
+    #     executable="lead_demo",
+    #     output="screen",
+    #     parameters=[
+    #         # moveit_config.to_dict(),
+    #         lead_servo_params,
+    #         moveit_config.robot_description,
+    #         moveit_config.robot_description_semantic,
+    #     ],
+    # )
 
     # Publish TF
     robot_state_publisher = Node(
@@ -152,11 +179,18 @@ def generate_launch_description():
     )
     load_controllers.append(left_arm_controller_spawner)
     
+    right_arm_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["right_arm_controller", "-c", "/controller_manager"],
+    )
+    load_controllers.append(right_arm_controller_spawner)
+    
     
     for controller in [
         # "joint_state_broadcaster",
         # "left_arm_controller",
-        "right_arm_controller",
+        # "right_arm_controller",
         "left_hand_controller",
         "right_hand_controller",
     ]:
