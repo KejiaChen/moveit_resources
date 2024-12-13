@@ -74,7 +74,7 @@ def generate_launch_description():
     
     # The servo cpp interface demo
     # Creates the follower Servo node and publishes commands to it
-    servo_node = Node(
+    follow_servo_node = Node(
         package="moveit_servo",
         executable="follow_demo",
         output="screen",
@@ -86,19 +86,19 @@ def generate_launch_description():
         ],
     )
     
-    # # The servo cpp interface demo
-    # # Creates the leader Servo node and publishes commands to it
-    # servo_node = Node(
-    #     package="moveit_servo",
-    #     executable="lead_demo",
-    #     output="screen",
-    #     parameters=[
-    #         # moveit_config.to_dict(),
-    #         lead_servo_params,
-    #         moveit_config.robot_description,
-    #         moveit_config.robot_description_semantic,
-    #     ],
-    # )
+    # The servo cpp interface demo
+    # Creates the leader Servo node and publishes commands to it
+    lead_servo_node = Node(
+        package="moveit_servo",
+        executable="lead_demo",
+        output="screen",
+        parameters=[
+            # moveit_config.to_dict(),
+            lead_servo_params,
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+        ],
+    )
 
     # Publish TF
     robot_state_publisher = Node(
@@ -206,7 +206,8 @@ def generate_launch_description():
         [
             rviz_node,
             static_tf_node,
-            servo_node,
+            follow_servo_node,
+            lead_servo_node,
             ros2_control_node,
             robot_state_publisher,
             move_group_node,
