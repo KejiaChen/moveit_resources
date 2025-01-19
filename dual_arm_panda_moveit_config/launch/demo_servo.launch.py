@@ -27,7 +27,9 @@ def generate_launch_description():
                            )
         .robot_description_semantic(file_path="config/panda.srdf")
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
-        .planning_pipelines(pipelines=["ompl"])
+        .planning_pipelines(pipelines=["ompl", "pilz_industrial_motion_planner"])
+        .joint_limits(file_path="config/joint_limits.yaml")
+        .pilz_cartesian_limits(file_path="config/pilz_cartesian_limits.yaml")
         .to_moveit_configs()
     )
     
