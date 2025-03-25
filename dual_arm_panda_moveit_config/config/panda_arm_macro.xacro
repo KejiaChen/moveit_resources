@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:macro name="panda_arm" params="name prefix parent *origin initial_positions_file" >
+    <xacro:macro name="panda_arm" params="name prefix parent *origin initial_positions_file ros2_control_hardware_type" >
 
         <!-- ros2_control -->
         <xacro:include filename="$(find dual_arm_panda_moveit_config)/config/panda.ros2_control.xacro" />
-        <xacro:panda_arm_ros2_control name="${name}" initial_positions_file="${initial_positions_file}" prefix="${prefix}"/>
+        <xacro:panda_arm_ros2_control name="${name}_arm" initial_positions_file="${initial_positions_file}" prefix="${prefix}" ros2_control_hardware_type="${ros2_control_hardware_type}"/>
 
         <xacro:include filename="panda_hand.ros2_control.xacro" />
-        <xacro:panda_hand_ros2_control name="${name}" prefix="${prefix}"/>
+        <xacro:panda_hand_ros2_control name="${name}_hand" prefix="${prefix}" ros2_control_hardware_type="${ros2_control_hardware_type}"/>
 
         <!-- base_joint fixes base_link to the environment -->
         <joint name="${prefix}base_joint" type="fixed">

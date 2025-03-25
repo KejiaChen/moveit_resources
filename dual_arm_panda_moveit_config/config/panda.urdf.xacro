@@ -5,6 +5,7 @@
             default="$(find dual_arm_panda_moveit_config)/config/left_initial_positions.yaml"/>
     <xacro:arg name="right_initial_positions_file"
             default="$(find dual_arm_panda_moveit_config)/config/right_initial_positions.yaml"/>
+    <xacro:arg name="ros2_control_hardware_type" default="mock_components" />
 
     <!-- Xacro imports -->
     <xacro:include filename="panda_arm_macro.xacro" />
@@ -47,7 +48,8 @@
         name="left_panda"
         prefix="left_"
         parent="base"
-        initial_positions_file="$(arg left_initial_positions_file)">
+        initial_positions_file="$(arg left_initial_positions_file)"
+        ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
         <origin xyz="0 -0.281 1" rpy="0 0 0" />
     </xacro:panda_arm>
 
@@ -56,7 +58,8 @@
         name="right_panda"
         prefix="right_"
         parent="base"
-        initial_positions_file="$(arg right_initial_positions_file)">
+        initial_positions_file="$(arg right_initial_positions_file)"
+        ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
         <origin xyz="0 0.281 1" rpy="0 0 0" />
     </xacro:panda_arm>
 </robot>
