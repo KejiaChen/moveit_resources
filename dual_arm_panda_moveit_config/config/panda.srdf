@@ -30,6 +30,14 @@
     <joint name="right_panda_finger_joint1"/>
     <passive_joint name="right_panda_finger_joint2"/>
   </group>
+  <group name="left_panda_arm_hand">
+    <group name="left_panda_arm"/>
+    <group name="left_hand"/>
+  </group>
+   <group name="right_panda_arm_hand">
+    <group name="right_panda_arm"/>
+    <group name="right_hand"/>
+  </group>
   <group name="dual_arm">
     <group name="right_panda_arm"/>
     <group name="left_panda_arm"/>

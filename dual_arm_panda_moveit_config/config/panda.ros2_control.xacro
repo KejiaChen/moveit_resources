@@ -13,6 +13,7 @@
                     <plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
                     <param name="joint_commands_topic">/${prefix}isaac_joint_commands</param>
                     <param name="joint_states_topic">/${prefix}isaac_joint_states</param>
+                    <param name="trigger_joint_command_threshold">-1</param>
                 </xacro:if>
             </hardware>
             <joint name="${prefix}panda_joint1">

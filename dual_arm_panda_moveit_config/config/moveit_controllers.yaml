@@ -5,3 +5,53 @@ trajectory_execution:
   allowed_start_tolerance: 0.01
 
 moveit_controller_manager: moveit_ros_control_interface/Ros2ControlManager
+# moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - left_arm_controller
+    - right_arm_controller
+    - left_hand_controller
+    - right_hand_controller
+
+  left_arm_controller:
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    # type: joint_trajectory_controller/JointTrajectoryController
+    default: true
+    joints:
+      - left_panda_joint1
+      - left_panda_joint2
+      - left_panda_joint3
+      - left_panda_joint4
+      - left_panda_joint5
+      - left_panda_joint6
+      - left_panda_joint7
+
+  right_arm_controller:
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    # type: joint_trajectory_controller/JointTrajectoryController
+    default: false  # Only one controller can be set as default
+    joints:
+      - right_panda_joint1
+      - right_panda_joint2
+      - right_panda_joint3
+      - right_panda_joint4
+      - right_panda_joint5
+      - right_panda_joint6
+      - right_panda_joint7
+
+  left_hand_controller:
+    action_ns: gripper_cmd
+    type: GripperCommand
+    default: true
+    joints:
+      - left_panda_finger_joint1
+
+  right_hand_controller:
+    action_ns: gripper_cmd
+    type: GripperCommand
+    default: false  # Only one controller can be set as default
+    joints:
+      - right_panda_finger_joint1
