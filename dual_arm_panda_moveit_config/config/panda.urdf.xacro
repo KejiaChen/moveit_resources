@@ -6,9 +6,12 @@
     <xacro:arg name="right_initial_positions_file"
             default="$(find dual_arm_panda_moveit_config)/config/right_initial_positions.yaml"/>
     <xacro:arg name="ros2_control_hardware_type" default="mock_components" />
+    <xacro:arg name="use_sensone_left" default="false" />
+    <xacro:arg name="use_sensone_right" default="false" />
 
     <!-- Xacro imports -->
     <xacro:include filename="panda_arm_macro.xacro" />
+    <xacro:include filename="panda_arm_sensone_macro.xacro" />
 
     <!-- Root link -->
     <link name="world"/>
@@ -44,22 +47,47 @@
     </joint>
 
     <!-- Left arm -->
-    <xacro:panda_arm
-        name="left_panda"
-        prefix="left_"
-        parent="base"
-        initial_positions_file="$(arg left_initial_positions_file)"
-        ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-        <origin xyz="0 -0.281 1" rpy="0 0 0" />
-    </xacro:panda_arm>
+    <xacro:if value="$(arg use_sensone_left)">
+        <xacro:panda_arm_sensone
+            name="left_panda"
+            prefix="left_"
+            parent="base"
+            initial_positions_file="$(arg left_initial_positions_file)"
+            ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
+            <origin xyz="0 -0.281 1" rpy="0 0 0" />
+        </xacro:panda_arm_sensone>
+    </xacro:if>
+    <xacro:unless value="$(arg use_sensone_left)">
+        <xacro:panda_arm
+            name="left_panda"
+            prefix="left_"
+            parent="base"
+            initial_positions_file="$(arg left_initial_positions_file)"
+            ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
+            <origin xyz="0 -0.281 1" rpy="0 0 0" />
+        </xacro:panda_arm>
+    </xacro:unless>
 
     <!-- Right arm -->
-    <xacro:panda_arm
-        name="right_panda"
-        prefix="right_"
-        parent="base"
-        initial_positions_file="$(arg right_initial_positions_file)"
-        ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-        <origin xyz="0 0.281 1" rpy="0 0 0" />
-    </xacro:panda_arm>
+    <xacro:if value="$(arg use_sensone_right)">
+        <xacro:panda_arm_sensone
+            name="right_panda"
+            prefix="right_"
+            parent="base"
+            initial_positions_file="$(arg right_initial_positions_file)"
+            ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
+            <origin xyz="0 0.281 1" rpy="0 0 0" />
+        </xacro:panda_arm_sensone>
+    </xacro:if>
+    <xacro:unless value="$(arg use_sensone_right)"> 
+        <xacro:panda_arm
+            name="right_panda"
+            prefix="right_"
+            parent="base"
+            initial_positions_file="$(arg right_initial_positions_file)"
+            ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
+            <origin xyz="0 0.281 1" rpy="0 0 0" />
+        </xacro:panda_arm>
+    </xacro:unless>
+
 </robot>
