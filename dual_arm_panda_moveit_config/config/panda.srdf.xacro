@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+
+  <!-- Define and pass arguments -->
+  <xacro:arg name="use_sensone_left" default="false"/>
+  <xacro:arg name="use_sensone_right" default="false"/>
+
+  <!-- Import the macro file -->
+  <xacro:include filename="panda_macro.srdf.xacro"/>
+
+  <!-- Invoke macro with args -->
+  <xacro:panda_srdf use_sensone_left="$(arg use_sensone_left)" use_sensone_right="$(arg use_sensone_right)"/>
+
+  <!-- <xacro:arg name="use_sensone_left" default="true"/>
+  <xacro:property name="use_sensone_left" value="$(arg use_sensone_left)"/>
+  <xacro:arg name="use_sensone_right" default="false"/>
+  <xacro:property name="use_sensone_right" value="$(arg use_sensone_right)"/> -->
+
+</robot>
