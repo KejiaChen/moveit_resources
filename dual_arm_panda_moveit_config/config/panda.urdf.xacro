@@ -41,12 +41,42 @@
     </link>
 
     <joint name="base_to_world" type="fixed">
-            <parent link="world"/>
-            <child link="base"/>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="world"/>
+        <child link="base"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </joint>
 
     <!-- Left arm -->
+    <!-- left arm base -->
+    <link name="left_base">
+        <visual>
+        <origin xyz="-0.055 -0.281 1.0125" rpy="0 0 0" />
+        <geometry>
+            <box size="0.25 0.25 0.025" />
+        </geometry>
+        <material name="White">
+            <color rgba="1.0 1.0 1.0 1.0" />
+        </material>
+        </visual>
+        <collision>
+        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <geometry>
+            <box size="0.8 1.6 1" />
+        </geometry>
+        </collision>
+        <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="10.0"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.001" iyy="0.0" iyz="0.0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="left_base_to_world" type="fixed">
+        <parent link="base"/>
+        <child link="left_base"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
     <xacro:if value="$(arg use_sensone_left)">
         <xacro:panda_arm_sensone
             name="left_panda"
@@ -54,7 +84,7 @@
             parent="base"
             initial_positions_file="$(arg left_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 -0.281 1" rpy="0 0 0" />
+            <origin xyz="0 -0.281 1.025" rpy="0 0 0" />
         </xacro:panda_arm_sensone>
     </xacro:if>
     <xacro:unless value="$(arg use_sensone_left)">
@@ -64,11 +94,41 @@
             parent="base"
             initial_positions_file="$(arg left_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 -0.281 1" rpy="0 0 0" />
+            <origin xyz="0 -0.281 1.025" rpy="0 0 0" />
         </xacro:panda_arm>
     </xacro:unless>
 
     <!-- Right arm -->
+    <!-- right arm base -->
+    <link name="right_base">
+        <visual>
+        <origin xyz="-0.055 0.281 1.0125" rpy="0 0 0" />
+        <geometry>
+            <box size="0.25 0.25 0.025" />
+        </geometry>
+        <material name="White">
+            <color rgba="1.0 1.0 1.0 1.0" />
+        </material>
+        </visual>
+        <collision>
+        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <geometry>
+            <box size="0.8 1.6 1" />
+        </geometry>
+        </collision>
+        <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="10.0"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.001" iyy="0.0" iyz="0.0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="right_base_to_world" type="fixed">
+        <parent link="base"/>
+        <child link="right_base"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
     <xacro:if value="$(arg use_sensone_right)">
         <xacro:panda_arm_sensone
             name="right_panda"
@@ -76,7 +136,7 @@
             parent="base"
             initial_positions_file="$(arg right_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 0.281 1" rpy="0 0 0" />
+            <origin xyz="0 0.281 1.025" rpy="0 0 0" />
         </xacro:panda_arm_sensone>
     </xacro:if>
     <xacro:unless value="$(arg use_sensone_right)"> 
@@ -86,7 +146,7 @@
             parent="base"
             initial_positions_file="$(arg right_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 0.281 1" rpy="0 0 0" />
+            <origin xyz="0 0.281 1.025" rpy="0 0 0" />
         </xacro:panda_arm>
     </xacro:unless>
 
