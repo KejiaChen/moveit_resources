@@ -19,7 +19,7 @@
     <!-- box shaped table as base for the 2 Pandas -->
     <link name="base">
         <visual>
-        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <origin xyz="0.09 0 -0.525" rpy="0 0 0" />
         <geometry>
             <box size="0.8 1.6 1" />
         </geometry>
@@ -28,7 +28,7 @@
         </material>
         </visual>
         <collision>
-        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <origin xyz="0.09 0 -0.525" rpy="0 0 0" />
         <geometry>
             <box size="0.8 1.6 1" />
         </geometry>
@@ -50,7 +50,7 @@
     <!-- left arm base -->
     <link name="left_base">
         <visual>
-        <origin xyz="-0.055 -0.281 1.0125" rpy="0 0 0" />
+        <origin xyz="-0.04 -0.281 -0.0125" rpy="0 0 0" />
         <geometry>
             <box size="0.25 0.25 0.025" />
         </geometry>
@@ -58,12 +58,12 @@
             <color rgba="1.0 1.0 1.0 1.0" />
         </material>
         </visual>
-        <collision>
+        <!-- <collision>
         <origin xyz="0.09 0 0.5" rpy="0 0 0" />
         <geometry>
             <box size="0.8 1.6 1" />
         </geometry>
-        </collision>
+        </collision> -->
         <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="10.0"/>
@@ -84,7 +84,7 @@
             parent="base"
             initial_positions_file="$(arg left_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 -0.281 1.025" rpy="0 0 0" />
+            <origin xyz="0 -0.281 0.0" rpy="0 0 0" />
         </xacro:panda_arm_sensone>
     </xacro:if>
     <xacro:unless value="$(arg use_sensone_left)">
@@ -94,7 +94,7 @@
             parent="base"
             initial_positions_file="$(arg left_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 -0.281 1.025" rpy="0 0 0" />
+            <origin xyz="0 -0.281 0.0" rpy="0 0 0" />
         </xacro:panda_arm>
     </xacro:unless>
 
@@ -102,7 +102,7 @@
     <!-- right arm base -->
     <link name="right_base">
         <visual>
-        <origin xyz="-0.055 0.281 1.0125" rpy="0 0 0" />
+        <origin xyz="-0.04 0.281 -0.0125" rpy="0 0 0" />
         <geometry>
             <box size="0.25 0.25 0.025" />
         </geometry>
@@ -110,12 +110,12 @@
             <color rgba="1.0 1.0 1.0 1.0" />
         </material>
         </visual>
-        <collision>
-        <origin xyz="0.09 0 0.5" rpy="0 0 0" />
+        <!-- <collision>
+        <origin xyz="-0.04 0.281 -0.0125" rpy="0 0 0" />
         <geometry>
             <box size="0.8 1.6 1" />
         </geometry>
-        </collision>
+        </collision> -->
         <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="10.0"/>
@@ -136,7 +136,7 @@
             parent="base"
             initial_positions_file="$(arg right_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 0.281 1.025" rpy="0 0 0" />
+            <origin xyz="0 0.281 0.0" rpy="0 0 0" />
         </xacro:panda_arm_sensone>
     </xacro:if>
     <xacro:unless value="$(arg use_sensone_right)"> 
@@ -146,7 +146,7 @@
             parent="base"
             initial_positions_file="$(arg right_initial_positions_file)"
             ros2_control_hardware_type="$(arg ros2_control_hardware_type)">
-            <origin xyz="0 0.281 1.025" rpy="0 0 0" />
+            <origin xyz="0 0.281 0.0" rpy="0 0 0" />
         </xacro:panda_arm>
     </xacro:unless>
 
